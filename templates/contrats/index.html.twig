@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Titre</title>
+    </head>
+
+    <body>
+    <h1>contrat</h1>
+    {% for contrat in contrats %}
+    {{ contrat.type }}
+    {{ contrat.getDateFin }}
+    {% endfor %}
+    </body>
+</html>
