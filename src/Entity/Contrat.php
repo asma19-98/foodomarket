@@ -6,9 +6,11 @@ use App\Repository\ContratRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=ContratRepository::class)
+ * @ApiResource
  */
 class Contrat
 {
@@ -35,13 +37,16 @@ class Contrat
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Employe::class, mappedBy="contrat")
+     * @ORM\OneToMany(targetEntity=Employe::class, mappedBy="Contrat")
      */
-    private $emplpoyes;
+    private $employes;
+
+    
 
     public function __construct()
     {
         $this->emplpoyes = new ArrayCollection();
+        $this->employes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,28 +95,29 @@ class Contrat
      */
     public function getEmployes(): Collection
     {
-        return $this->emplpoyes;
+        return $this->employes;
     }
 
-    public function addEmployes(Employe $idEmp): self
+    public function addEmploye(Employe $employe): self
     {
-        if (!$this->emplpoyes->contains($idEmp)) {
-            $this->emplpoyes[] = $idEmp;
-            $idEmp->setContrat($this);
+        if (!$this->employes->contains($employe)) {
+            $this->employes[] = $employe;
+            $employe->setContrat($this);
         }
 
         return $this;
     }
 
-    public function removeEmployes(Employe $idEmp): self
+    public function removeEmploye(Employe $employe): self
     {
-        if ($this->emplpoyes->removeElement($idEmp)) {
+        if ($this->employes->removeElement($employe)) {
             // set the owning side to null (unless already changed)
-            if ($idEmp->getContrat() === $this) {
-                $idEmp->setContrat(null);
+            if ($employe->getContrat() === $this) {
+                $employe->setContrat(null);
             }
         }
 
         return $this;
     }
-}
+
+  }

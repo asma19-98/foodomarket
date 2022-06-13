@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EmployeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=EmployeRepository::class)
+ * @ApiResource
  */
 class Employe
 {
@@ -18,10 +19,10 @@ class Employe
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Contrat::class, inversedBy="id_emp")
+     * @ORM\ManyToOne(targetEntity=Contrat::class, inversedBy="employes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $contrat;
+    private $Contrat;
 
     public function getId(): ?int
     {
@@ -30,12 +31,12 @@ class Employe
 
     public function getContrat(): ?Contrat
     {
-        return $this->contrat;
+        return $this->Contrat;
     }
 
-    public function setContrat(?Contrat $contrat): self
+    public function setContrat(?Contrat $Contrat): self
     {
-        $this->contrat = $contrat;
+        $this->Contrat = $Contrat;
 
         return $this;
     }
